@@ -66,7 +66,7 @@ export default function DashboardPage() {
       <motion.div
         initial={{ opacity: 0, y: 18 }}
         animate={{ opacity: 1, y: 0 }}
-        className="relative overflow-hidden rounded-[2rem] border border-white/70 bg-slatePro-950 p-6 text-white shadow-soft md:p-8"
+        className="relative overflow-hidden rounded-[1.6rem] border border-white/70 bg-slatePro-950 p-4 text-white shadow-soft sm:p-5 md:rounded-[2rem] md:p-8"
       >
         <div className="absolute inset-0 bg-[radial-gradient(circle_at_top_left,_rgba(34,211,238,0.22),_transparent_30%),radial-gradient(circle_at_right,_rgba(99,102,241,0.25),_transparent_26%)]" />
         <div className="relative z-10 mx-auto max-w-4xl space-y-5 text-center">
@@ -74,14 +74,14 @@ export default function DashboardPage() {
             <Sparkles className="h-4 w-4" />
             AI presentation workspace
           </div>
-          <h2 className="font-display text-4xl font-bold leading-tight md:text-5xl">
+          <h2 className="font-display text-3xl font-bold leading-tight sm:text-4xl md:text-5xl">
             What would you like to create today?
           </h2>
           <p className="mx-auto max-w-2xl text-sm leading-7 text-slate-300 md:text-base">
             Move into AI Studio for live outline streaming, template guidance, and progressive slide generation.
           </p>
 
-          <div className="rounded-[1.75rem] border border-white/10 bg-white/5 p-3 backdrop-blur">
+          <div className="rounded-[1.35rem] border border-white/10 bg-white/5 p-3 backdrop-blur sm:rounded-[1.75rem]">
             <div className="flex flex-col gap-3 md:flex-row">
               <textarea
                 rows={3}
@@ -90,7 +90,7 @@ export default function DashboardPage() {
                 placeholder="Create a high-impact investor deck for an AI-powered analytics platform..."
                 className="w-full rounded-[1.5rem] border border-white/10 bg-slatePro-900/70 px-4 py-4 text-sm text-white placeholder:text-slate-400 outline-none focus:border-cyan-300/40"
               />
-              <button onClick={() => startStudio()} className="btn-primary min-w-[190px]">
+              <button onClick={() => startStudio()} className="btn-primary w-full md:min-w-[190px] md:w-auto">
                 Open AI Studio
                 <ArrowRight className="h-4 w-4" />
               </button>
@@ -111,7 +111,7 @@ export default function DashboardPage() {
       </motion.div>
 
       <div className="grid gap-6 xl:grid-cols-[1.1fr,0.9fr]">
-        <div className="rounded-[1.75rem] border border-white/70 bg-white/85 p-6 shadow-glass backdrop-blur-xl">
+        <div className="rounded-[1.5rem] border border-white/70 bg-white/85 p-4 shadow-glass backdrop-blur-xl sm:p-5 md:rounded-[1.75rem] md:p-6">
           <div className="flex flex-wrap items-center justify-between gap-3">
             <div>
               <p className="text-xs font-semibold uppercase tracking-[0.24em] text-brand-700">Recent presentations</p>
@@ -154,7 +154,7 @@ export default function DashboardPage() {
           </div>
         </div>
 
-        <div className="rounded-[1.75rem] border border-white/70 bg-white/85 p-6 shadow-glass backdrop-blur-xl">
+        <div className="rounded-[1.5rem] border border-white/70 bg-white/85 p-4 shadow-glass backdrop-blur-xl sm:p-5 md:rounded-[1.75rem] md:p-6">
           <p className="text-xs font-semibold uppercase tracking-[0.24em] text-brand-700">Trending templates</p>
           <h3 className="mt-2 font-display text-2xl font-bold text-slatePro-900">Popular visual directions</h3>
           <div className="mt-5 space-y-3">

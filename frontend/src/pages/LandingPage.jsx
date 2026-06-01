@@ -111,16 +111,16 @@ export default function LandingPage() {
       <div className="absolute right-[-4rem] top-16 h-80 w-80 rounded-full bg-sky-300/25 blur-3xl" />
 
       <div className="relative mx-auto w-full max-w-7xl px-4 py-8 md:px-6">
-        <header className="mb-16 flex items-center justify-between rounded-2xl border border-white/70 bg-white/70 px-5 py-4 shadow-glass backdrop-blur-xl">
+        <header className="mb-12 flex flex-col gap-4 rounded-2xl border border-white/70 bg-white/70 px-4 py-4 shadow-glass backdrop-blur-xl sm:mb-16 sm:flex-row sm:items-center sm:justify-between sm:px-5">
           <div>
             <h1 className="font-display text-2xl font-bold">SlideCraft AI</h1>
             <p className="text-xs text-slatePro-500">AI presentation workspace</p>
           </div>
-          <div className="flex gap-3">
-            <Link to="/login" className="btn-secondary">
+          <div className="flex w-full flex-col gap-3 sm:w-auto sm:flex-row">
+            <Link to="/login" className="btn-secondary w-full justify-center sm:w-auto">
               Login
             </Link>
-            <Link to="/signup" className="btn-primary">
+            <Link to="/signup" className="btn-primary w-full justify-center sm:w-auto">
               Start Free
             </Link>
           </div>
@@ -132,18 +132,18 @@ export default function LandingPage() {
               <Sparkles className="h-4 w-4" />
               Premium AI presentation generation
             </div>
-            <h2 className="max-w-3xl font-display text-5xl font-bold leading-[1.05] md:text-6xl">
+            <h2 className="max-w-3xl font-display text-4xl font-bold leading-[1.05] sm:text-5xl md:text-6xl">
               Generate, stream, and edit presentations directly on the slide canvas.
             </h2>
             <p className="max-w-2xl text-lg leading-8 text-slatePro-600">
               A modern AI deck builder inspired by Gamma, Canva, and Notion. Watch outlines and slides appear live, then refine every element inline without leaving the canvas.
             </p>
-            <div className="flex flex-wrap gap-3">
-              <Link to="/signup" className="btn-primary">
+            <div className="flex flex-col gap-3 sm:flex-row sm:flex-wrap">
+              <Link to="/signup" className="btn-primary w-full justify-center sm:w-auto">
                 Build a deck
                 <ArrowRight className="h-4 w-4" />
               </Link>
-              <Link to="/create" className="btn-secondary">
+              <Link to="/create" className="btn-secondary w-full justify-center sm:w-auto">
                 View generator
               </Link>
             </div>

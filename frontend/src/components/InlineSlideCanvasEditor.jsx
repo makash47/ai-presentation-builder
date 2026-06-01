@@ -266,7 +266,7 @@ const SlideImage = ({
     <>
       <div
         ref={wrapperRef}
-        className="group relative h-[22rem] overflow-hidden rounded-[1.6rem] border border-white/20 bg-slate-950/70 shadow-[0_22px_60px_rgba(15,23,42,0.55)] lg:h-[26rem]"
+        className="group relative h-56 overflow-hidden rounded-[1.35rem] border border-white/20 bg-slate-950/70 shadow-[0_22px_60px_rgba(15,23,42,0.55)] sm:h-72 sm:rounded-[1.6rem] lg:h-[26rem]"
       >
         {slide.imageUrl ? (
           <ProgressiveSlideImage
@@ -288,11 +288,11 @@ const SlideImage = ({
         )}
 
         <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-slate-950/60 via-slate-900/5 to-transparent opacity-0 transition duration-300 group-hover:opacity-100" />
-        <div className="absolute right-3 top-3 z-10 flex translate-y-2 flex-wrap gap-2 opacity-0 transition duration-300 group-hover:translate-y-0 group-hover:opacity-100">
+        <div className="absolute right-2 top-2 z-10 flex translate-y-0 flex-wrap gap-1.5 opacity-100 transition duration-300 sm:right-3 sm:top-3 sm:translate-y-2 sm:gap-2 sm:opacity-0 sm:group-hover:translate-y-0 sm:group-hover:opacity-100">
           <button
             type="button"
             onClick={() => onRegenerateImage(promptDraft)}
-            className="inline-flex items-center gap-1 rounded-xl border border-white/25 bg-slate-900/70 px-3 py-1.5 text-xs font-semibold text-white backdrop-blur-md"
+            className="inline-flex items-center gap-1 rounded-xl border border-white/25 bg-slate-900/70 px-2.5 py-1.5 text-[11px] font-semibold text-white backdrop-blur-md sm:px-3 sm:text-xs"
             disabled={isImageLoading}
           >
             {isImageLoading ? <RefreshCcw className="h-3.5 w-3.5 animate-spin" /> : <RefreshCcw className="h-3.5 w-3.5" />}
@@ -301,14 +301,14 @@ const SlideImage = ({
           <button
             type="button"
             onClick={() => setIsPromptModalOpen(true)}
-            className="rounded-xl border border-white/25 bg-slate-900/70 px-3 py-1.5 text-xs font-semibold text-white backdrop-blur-md"
+            className="rounded-xl border border-white/25 bg-slate-900/70 px-2.5 py-1.5 text-[11px] font-semibold text-white backdrop-blur-md sm:px-3 sm:text-xs"
           >
             Edit Prompt
           </button>
           <button
             type="button"
             onClick={() => uploadInputRef.current?.click()}
-            className="inline-flex items-center gap-1 rounded-xl border border-white/25 bg-slate-900/70 px-3 py-1.5 text-xs font-semibold text-white backdrop-blur-md"
+            className="inline-flex items-center gap-1 rounded-xl border border-white/25 bg-slate-900/70 px-2.5 py-1.5 text-[11px] font-semibold text-white backdrop-blur-md sm:px-3 sm:text-xs"
           >
             <ImageUp className="h-3.5 w-3.5" />
             Upload
@@ -318,6 +318,7 @@ const SlideImage = ({
             onClick={() => setIsRepositionMode((current) => !current)}
             className={clsx(
               "inline-flex items-center gap-1 rounded-xl border px-3 py-1.5 text-xs font-semibold backdrop-blur-md",
+              "px-2.5 text-[11px] sm:px-3 sm:text-xs",
               isRepositionMode
                 ? "border-cyan-300/70 bg-cyan-300/20 text-cyan-100"
                 : "border-white/25 bg-slate-900/70 text-white"
@@ -329,7 +330,7 @@ const SlideImage = ({
           <button
             type="button"
             onClick={onDeleteImage}
-            className="inline-flex items-center gap-1 rounded-xl border border-red-300/35 bg-red-500/15 px-3 py-1.5 text-xs font-semibold text-red-100 backdrop-blur-md"
+            className="inline-flex items-center gap-1 rounded-xl border border-red-300/35 bg-red-500/15 px-2.5 py-1.5 text-[11px] font-semibold text-red-100 backdrop-blur-md sm:px-3 sm:text-xs"
           >
             <Trash2 className="h-3.5 w-3.5" />
             Remove
@@ -398,13 +399,12 @@ export default function InlineSlideCanvasEditor({
   );
 
   const textBlock = (dark = false) => (
-    <div className={clsx("flex flex-col gap-4 p-6 md:p-8", dark ? "text-white" : "text-slatePro-900")}>
+    <div className={clsx("flex flex-col gap-4 p-4 sm:p-6 md:p-8", dark ? "text-white" : "text-slatePro-900")}>
       <EditableText
-        as="h3"
         value={slide.title}
         onChange={(nextValue) => onFieldChange("title", nextValue)}
         className={clsx(
-          "font-display text-3xl font-bold leading-tight",
+          "font-display text-2xl font-bold leading-tight sm:text-3xl",
           dark ? "text-white placeholder:text-slate-300/70" : "text-slatePro-900 placeholder:text-slatePro-400"
         )}
         placeholder="Slide title"
@@ -455,7 +455,7 @@ export default function InlineSlideCanvasEditor({
     if (layout === "image-background") {
       return (
         <div className="relative overflow-hidden rounded-[1.75rem]">
-          <div className="min-h-[32rem]">
+          <div className="min-h-[28rem] sm:min-h-[32rem]">
             <ProgressiveSlideImage
               key={`${slide.imageUrl}-${slide.layoutVariant || "background"}-${slide.imageMeta?.generatedAt || ""}`}
               slide={slide}
@@ -464,9 +464,9 @@ export default function InlineSlideCanvasEditor({
               showLoadingState
             />
             <div className="absolute inset-0 bg-gradient-to-r from-slatePro-950/85 via-slatePro-900/55 to-slatePro-950/25" />
-            <div className="relative z-10 grid min-h-[32rem] gap-6 lg:grid-cols-[1fr,340px]">
+            <div className="relative z-10 grid min-h-[28rem] gap-4 sm:min-h-[32rem] sm:gap-6 lg:grid-cols-[1fr,340px]">
               <div className="max-w-2xl">{textBlock(true)}</div>
-              <div className="p-5">{imagePanel}</div>
+              <div className="p-4 sm:p-5">{imagePanel}</div>
             </div>
           </div>
         </div>
@@ -486,7 +486,7 @@ export default function InlineSlideCanvasEditor({
       layout
       initial={{ opacity: 0, y: 24 }}
       animate={{ opacity: 1, y: 0 }}
-      className="space-y-4 rounded-[2rem] border border-slatePro-200/85 bg-white/95 p-5 shadow-[0_18px_60px_rgba(15,23,42,0.16)]"
+      className="space-y-4 rounded-[1.5rem] border border-slatePro-200/85 bg-white/95 p-3 shadow-[0_18px_60px_rgba(15,23,42,0.16)] sm:rounded-[2rem] sm:p-5"
       draggable
       onDragStart={onDragStart}
       onDragOver={onDragOver}
@@ -504,22 +504,22 @@ export default function InlineSlideCanvasEditor({
         </div>
 
         <div className="flex flex-wrap items-center gap-2">
-          <button type="button" onClick={onCycleLayout} className="btn-secondary px-3 py-2 text-xs">
+          <button type="button" onClick={onCycleLayout} className="btn-secondary px-3 py-2 text-[11px] sm:text-xs">
             <LayoutTemplate className="h-3.5 w-3.5" />
             Layout
           </button>
-          <button type="button" onClick={onDuplicate} className="btn-secondary px-3 py-2 text-xs">
+          <button type="button" onClick={onDuplicate} className="btn-secondary px-3 py-2 text-[11px] sm:text-xs">
             <Copy className="h-3.5 w-3.5" />
             Duplicate
           </button>
-          <button type="button" onClick={onAddAfter} className="btn-secondary px-3 py-2 text-xs">
+          <button type="button" onClick={onAddAfter} className="btn-secondary px-3 py-2 text-[11px] sm:text-xs">
             <Plus className="h-3.5 w-3.5" />
             Add After
           </button>
           <button
             type="button"
             onClick={onDeleteSlide}
-            className="inline-flex items-center gap-1 rounded-xl border border-red-200 bg-red-50 px-3 py-2 text-xs font-semibold text-red-600"
+            className="inline-flex items-center gap-1 rounded-xl border border-red-200 bg-red-50 px-3 py-2 text-[11px] font-semibold text-red-600 sm:text-xs"
           >
             <Trash2 className="h-3.5 w-3.5" />
             Delete
@@ -527,8 +527,8 @@ export default function InlineSlideCanvasEditor({
         </div>
       </div>
 
-      <div className="overflow-x-auto pb-2">
-        <div style={zoomStyle} className="mx-auto min-w-[760px]">
+      <div className="overflow-hidden pb-2">
+        <div style={zoomStyle} className="mx-auto w-full min-w-0 max-w-full sm:min-w-[560px] lg:min-w-[760px]">
           <div
             data-slide-export={`slide-${index}`}
             className={clsx("overflow-hidden rounded-[1.75rem] border", theme.border, theme.shell)}

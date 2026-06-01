@@ -10,11 +10,15 @@ const {
 const { generateImage } = require("../ai/imageService");
 
 const ALLOWED_IMAGE_HOSTS = new Set([
-  "images.pexels.com"
+  "images.pexels.com",
+  "images.unsplash.com",
+  "picsum.photos"
 ]);
 
 const DIRECT_SERVE_HOSTS = new Set([
-  "images.pexels.com"
+  "images.pexels.com",
+  "images.unsplash.com",
+  "picsum.photos"
 ]);
 
 const buildImageProxyUrl = (req, sourceUrl) => {
@@ -34,7 +38,15 @@ const decodeProxySource = (encodedSource) => {
 const isAllowedSourceUrl = (value) => {
   try {
     const parsed = new URL(value);
-    return ["http:", "https:"].includes(parsed.protocol) && ALLOWED_IMAGE_HOSTS.has(parsed.hostname);
+    const host = parsed.hostname;
+    return (
+      ["http:", "https:"].includes(parsed.protocol) &&
+      (ALLOWED_IMAGE_HOSTS.has(host) ||
+        host.endsWith(".unsplash.com") ||
+        host.endsWith(".pexels.com") ||
+        host.endsWith(".picsum.photos") ||
+        host === "picsum.photos")
+    );
   } catch {
     return false;
   }
@@ -134,7 +146,14 @@ const generateImageController = asyncHandler(async (req, res) => {
   } else {
     try {
       const parsed = new URL(sourceUrl);
-      if (DIRECT_SERVE_HOSTS.has(parsed.hostname)) {
+      const host = parsed.hostname;
+      if (
+        DIRECT_SERVE_HOSTS.has(host) ||
+        host.endsWith(".unsplash.com") ||
+        host.endsWith(".pexels.com") ||
+        host.endsWith(".picsum.photos") ||
+        host === "picsum.photos"
+      ) {
         imageUrl = sourceUrl;
       } else {
         imageUrl = buildImageProxyUrl(req, sourceUrl);

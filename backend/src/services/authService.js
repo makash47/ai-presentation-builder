@@ -93,7 +93,13 @@ const signup = async ({ name, email, password }) => {
     isEmailVerified: false
   });
 
-  const delivery = await createVerificationPayload(user);
+  let delivery;
+  try {
+    delivery = await createVerificationPayload(user);
+  } catch (error) {
+    await user.deleteOne().catch(() => {});
+    throw error;
+  }
 
   return {
     user: sanitizeUser(user),

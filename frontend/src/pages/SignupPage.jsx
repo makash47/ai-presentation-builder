@@ -43,13 +43,13 @@ export default function SignupPage() {
   };
 
   return (
-    <div className="glass-panel w-full max-w-xl rounded-[2rem] border border-white/80 p-8 shadow-soft md:p-10">
-      <div className="mb-8">
+    <div className="glass-panel w-full max-w-xl rounded-[1.5rem] border border-white/80 p-5 shadow-soft sm:p-6 md:rounded-[2rem] md:p-10">
+      <div className="mb-6 sm:mb-8">
         <div className="inline-flex items-center gap-2 rounded-full border border-brand-200 bg-brand-50 px-4 py-2 text-xs font-semibold text-brand-700">
           <Sparkles className="h-4 w-4" />
           Start your AI presentation workspace
         </div>
-        <h1 className="mt-5 font-display text-4xl font-bold text-slatePro-900">Create your account</h1>
+        <h1 className="mt-4 font-display text-3xl font-bold text-slatePro-900 sm:mt-5 sm:text-4xl">Create your account</h1>
         <p className="mt-3 max-w-md text-sm leading-7 text-slatePro-600">
           Join a premium AI presentation workflow with live generation, inline editing, and a polished dashboard.
         </p>

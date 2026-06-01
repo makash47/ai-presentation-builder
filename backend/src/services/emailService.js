@@ -8,6 +8,8 @@ let transporter;
 const isEmailConfigured = () =>
   Boolean(env.smtpHost && env.smtpPort && env.smtpUser && env.smtpPass && env.smtpFromEmail);
 
+const isDevLikeEnvironment = () => env.nodeEnv !== "production";
+
 const getTransporter = () => {
   if (!isEmailConfigured()) {
     throw new ApiError(
@@ -32,6 +34,27 @@ const getTransporter = () => {
 };
 
 const sendOtpEmail = async ({ email, otp, subject, intro, label }) => {
+  if (isDevLikeEnvironment()) {
+    logger.info(`[DEV ONLY] OTP Verification Code for ${email}: ${otp}`);
+  }
+
+  if (!isEmailConfigured()) {
+    if (isDevLikeEnvironment()) {
+      logger.warn("SMTP not configured. Using local OTP fallback.", {
+        email,
+        subject,
+        otp,
+        mode: "console"
+      });
+
+      return {
+        delivery: "console"
+      };
+    }
+
+    getTransporter();
+  }
+
   const mailer = getTransporter();
 
   try {
@@ -61,6 +84,20 @@ const sendOtpEmail = async ({ email, otp, subject, intro, label }) => {
     };
   } catch (error) {
     logger.error("SMTP delivery failed", error);
+
+    if (isDevLikeEnvironment()) {
+      logger.warn("Falling back to local OTP console delivery after SMTP failure.", {
+        email,
+        subject,
+        otp,
+        mode: "console-fallback"
+      });
+
+      return {
+        delivery: "console"
+      };
+    }
+
     throw new ApiError(502, "We could not deliver the verification email. Please try again.");
   }
 };

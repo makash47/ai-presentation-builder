@@ -53,7 +53,7 @@ export default function VerifyEmailPage() {
   };
 
   return (
-    <div className="glass-panel w-full max-w-xl rounded-[2rem] border border-white/80 p-8 shadow-soft md:p-10">
+    <div className="glass-panel w-full max-w-xl rounded-[1.5rem] border border-white/80 p-5 shadow-soft sm:p-6 md:rounded-[2rem] md:p-10">
       <Link
         to="/login"
         className="inline-flex items-center gap-2 text-sm font-semibold text-slatePro-500 hover:text-slatePro-800"
@@ -67,7 +67,7 @@ export default function VerifyEmailPage() {
           <MailCheck className="h-4 w-4" />
           Verify your email
         </div>
-        <h1 className="mt-5 font-display text-4xl font-bold text-slatePro-900">Enter the 6-digit code</h1>
+        <h1 className="mt-4 font-display text-3xl font-bold text-slatePro-900 sm:mt-5 sm:text-4xl">Enter the 6-digit code</h1>
         <p className="mt-3 text-sm leading-7 text-slatePro-600">
           We've emailed a verification code to{" "}
           <span className="font-semibold text-slatePro-800">{email || "your email"}</span>.
