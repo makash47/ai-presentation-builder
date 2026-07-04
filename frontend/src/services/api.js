@@ -16,4 +16,21 @@ api.interceptors.request.use((config) => {
   return config;
 });
 
+api.interceptors.response.use(
+  (response) => response,
+  (error) => {
+    if (error?.response?.data?.message) {
+      return Promise.reject(error);
+    }
+
+    if (error?.code === "ERR_NETWORK" || !error?.response) {
+      error.userMessage = `Cannot connect to backend at ${API_BASE_URL}. Make sure the backend server is running.`;
+    } else {
+      error.userMessage = "Something went wrong while contacting the server.";
+    }
+
+    return Promise.reject(error);
+  }
+);
+
 export default api;

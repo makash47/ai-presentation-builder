@@ -38,7 +38,7 @@ export default function SignupPage() {
         }
       });
     } catch (error) {
-      toast.error(error?.response?.data?.message || "Signup failed.");
+      toast.error(error?.response?.data?.message || error?.userMessage || "Signup failed.");
     }
   };
 
