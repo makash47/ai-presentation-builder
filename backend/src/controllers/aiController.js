@@ -6,7 +6,7 @@ const {
   streamOutline,
   generateSlides,
   streamSlides
-} = require("../ai/groqService");
+} = require("../ai/textGenerationService");
 const { generateImage } = require("../ai/imageService");
 
 const ALLOWED_IMAGE_HOSTS = new Set([

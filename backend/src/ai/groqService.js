@@ -7,8 +7,16 @@ const {
 } = require("../utils/responseParsers");
 
 const getGroqClient = () => {
+  // Parse the base URL to handle both full endpoint and partial URLs
+  let baseURL = env.groqBaseUrl || "https://api.groq.com/openai/v1/chat/completions";
+
+  // If the URL includes /chat/completions, use the directory without the endpoint
+  if (baseURL.includes("/chat/completions")) {
+    baseURL = baseURL.replace("/chat/completions", "");
+  }
+
   return axios.create({
-    baseURL: "https://api.groq.com/openai/v1",
+    baseURL: baseURL,
     timeout: 60000,
     proxy: false,
     headers: {
@@ -38,15 +46,35 @@ const extractTextFromGroq = (payload) => {
 };
 
 const normalizeGroqError = (error) => {
+  const status = error?.response?.status;
   const reason =
     error?.response?.data?.error?.message ||
     error?.response?.data?.message ||
     error.message;
 
-  console.error("[Groq API Error]", reason, error?.response?.data || "");
+  // Enhanced logging for debugging
+  console.error("[Groq API Error]", {
+    status,
+    reason,
+    endpoint: error?.config?.baseURL,
+    model: error?.config?.data?.model,
+    hasApiKey: !!env.groqApiKey,
+    responseData: error?.response?.data
+  });
+
+  // Special handling for 404 errors
+  if (status === 404) {
+    console.error("[Groq 404 Debug]", {
+      message: "Endpoint not found - check API key validity and model name",
+      apiKeyLength: env.groqApiKey?.length || 0,
+      model: env.groqModel,
+      baseUrl: env.groqBaseUrl
+    });
+  }
 
   throw new ApiError(503, `Groq text generation failed: ${reason}`, {
-    reason
+    reason,
+    status
   });
 };
 
@@ -104,7 +132,7 @@ const generateContent = async (prompt, temperature = 0.7) => {
   try {
     const { data } = await withGroqRetry(() =>
       client.post("/chat/completions", {
-        model: env.groqModel || "llama-3.3-70b-versatile",
+        model: env.groqModel || "mixtral-8x7b-32768",
         messages: [{ role: "user", content: prompt }],
         temperature,
         max_tokens: 1500
@@ -126,11 +154,11 @@ const streamGenerateContent = async (prompt, onTextChunk) => {
       client.post(
         "/chat/completions",
         {
-          model: env.groqModel || "llama-3.3-70b-versatile",
-          messages: [{ role: "user", content: prompt }],
-          temperature: 0.7,
-          max_tokens: 1500,
-          stream: true
+        model: env.groqModel || "mixtral-8x7b-32768",
+        messages: [{ role: "user", content: prompt }],
+        temperature: 0.7,
+        max_tokens: 1500,
+        stream: true
         },
         { responseType: "stream" }
       )
