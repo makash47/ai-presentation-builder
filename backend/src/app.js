@@ -7,6 +7,7 @@ const rateLimit = require("express-rate-limit");
 
 const env = require("./config/env");
 const apiRoutes = require("./routes");
+const connectDatabase = require("./config/db");
 const { notFoundHandler, errorHandler } = require("./middleware/errorMiddleware");
 
 const app = express();
@@ -81,6 +82,17 @@ app.get("/api/health", (req, res) => {
     message: "API is healthy",
     timestamp: new Date().toISOString()
   });
+});
+
+// Ensure MongoDB is connected before handling API routes.
+// This is essential on serverless (Vercel), where server.js never runs.
+app.use("/api", async (req, res, next) => {
+  try {
+    await connectDatabase();
+    next();
+  } catch (error) {
+    next(error);
+  }
 });
 
 app.use("/api", apiRoutes);
