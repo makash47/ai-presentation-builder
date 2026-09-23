@@ -60,6 +60,21 @@ if (env.nodeEnv !== "test") {
   app.use(morgan("dev"));
 }
 
+// Root route
+app.get("/", (req, res) => {
+  res.status(200).json({
+    success: true,
+    message: "AI Presentation Builder API",
+    version: "1.0.0",
+    endpoints: {
+      health: "/api/health",
+      auth: "/api/auth",
+      ai: "/api/ai",
+      presentations: "/api/presentations"
+    }
+  });
+});
+
 app.get("/api/health", (req, res) => {
   res.status(200).json({
     success: true,
